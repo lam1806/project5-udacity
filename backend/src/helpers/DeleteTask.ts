@@ -1,6 +1,6 @@
 
 import { parseUserId } from '../auth/utils'
-import { AllToDoAccess } from './TodosAcess'
+import { AllToDoAccess } from './ListTaskAcess'
 
 const allToDoAccess = new AllToDoAccess()
 

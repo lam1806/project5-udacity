@@ -1,7 +1,7 @@
 import { TodoItem } from '../models/TodoItem'
 import { parseUserId } from '../auth/utils'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
-import { AllToDoAccess } from './TodosAcess'
+import { AllToDoAccess } from './ListTaskAcess'
 
 const uuidv4 = require('uuid/v4')
 const allToDoAccess = new AllToDoAccess()

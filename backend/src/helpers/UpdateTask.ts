@@ -1,7 +1,7 @@
 import { parseUserId } from '../auth/utils'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 //import { TodoUpdate } from '../models/TodoUpdate'
-import { AllToDoAccess } from './TodosAcess'
+import { AllToDoAccess } from './ListTaskAcess'
 
 const allToDoAccess = new AllToDoAccess()
 

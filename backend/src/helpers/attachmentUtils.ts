@@ -1,6 +1,6 @@
 //import * as AWS from 'aws-sdk'
 //import * as AWSXRay from 'aws-xray-sdk'
-import { AllToDoAccess } from "../helpers/TodosAcess";
+import { AllToDoAccess } from "./ListTaskAcess";
 import { createLogger } from "../utils/logger";
 //const XAWS = AWSXRay.captureAWS(AWS)
 import * as uuid from 'uuid';

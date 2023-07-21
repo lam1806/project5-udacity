@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@material-ui/core'; // Step 1: Import Button component from @material-ui/core
+import { Button } from '@material-ui/core'; 
 import Auth from '../auth/Auth';
 import { getUploadUrl, uploadFile } from '../api/todos-api';
 
@@ -77,7 +77,7 @@ export class EditTodo extends React.PureComponent<EditTodoProps, EditTodoState> 
             <label htmlFor="file">File</label>
             <input
               type="file"
-              id="file" // Added 'id' attribute to connect with the label
+              id="file" 
               accept="image/*"
               placeholder="Image to upload"
               onChange={this.handleFileChange}
@@ -96,9 +96,9 @@ export class EditTodo extends React.PureComponent<EditTodoProps, EditTodoState> 
         {this.state.uploadState === UploadState.FetchingPresignedUrl && <p>Uploading image metadata</p>}
         {this.state.uploadState === UploadState.UploadingFile && <p>Uploading file</p>}
         <Button
-          variant="contained" // Step 2: Add 'variant' prop to style the button
-          color="primary" // Step 3: Add 'color' prop to set the button color
-          disabled={this.state.uploadState !== UploadState.NoUpload} // Step 4: Disable the button when uploading
+          variant="contained" 
+          color="primary" 
+          disabled={this.state.uploadState !== UploadState.NoUpload} 
           type="submit"
         >
           Upload

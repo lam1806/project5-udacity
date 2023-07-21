@@ -3,7 +3,7 @@ import { S3 } from 'aws-sdk'
 import { TodoItem } from '../models/TodoItem'
 import { TodoUpdate } from '../models/TodoUpdate'
 import { Attachment } from './Attachments';
-import { createLogger } from '../../src/utils/logger';
+import { createLogger } from '../utils/logger';
 
 const logger = createLogger('TodosAccess')
 
