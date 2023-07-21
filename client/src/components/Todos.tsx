@@ -16,6 +16,7 @@ import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@materia
 import { createTodo, deleteTodo, getTodos, patchTodo } from '../api/todos-api';
 import Auth from '../auth/Auth';
 import { Todo } from '../types/Todo';
+import { Snackbar } from '@material-ui/core';
 
 
 
@@ -30,6 +31,8 @@ interface TodosState {
   loadingTodos: boolean;
   error: string;
   attachmentUrl: string;
+  showNotification: boolean;
+  notificationMessage: string;
 }
 
 export class Todos extends React.PureComponent<TodosProps, TodosState> {
@@ -39,6 +42,8 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     loadingTodos: true,
     error: '',
     attachmentUrl: '',
+    showNotification: false,
+    notificationMessage: '',
   };
 
   handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +54,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     this.props.history.push(`/todos/${todoId}/edit`);
   };
 
-  onTodoCreate = async (event: React.ChangeEvent<HTMLButtonElement>) => {
+  onTodoCreate = async () => {
     try {
       const { newTodoName } = this.state;
 
@@ -78,9 +83,19 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
   onTodoDelete = async (todoId: string) => {
     try {
       await deleteTodo(this.props.auth.getIdToken(), todoId);
-      this.setState({
-        todos: this.state.todos.filter(todo => todo.todoId !== todoId),
-      });
+      this.setState(
+        {
+          todos: this.state.todos.filter((todo) => todo.todoId !== todoId),
+          showNotification: true,
+          notificationMessage: 'Todo deleted successfully!',
+        },
+        () => {
+          // Hide the notification after 3 seconds
+          setTimeout(() => {
+            this.setState({ showNotification: false });
+          }, 3000);
+        }
+      );
     } catch {
       alert('Todo deletion failed');
     }
@@ -122,6 +137,13 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         <img src={Images2} style={{ width: '100%', height:'400px' }} alt="Image 1"  />
         {this.renderCreateTodoInput()}
         {this.renderTodos()}
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={this.state.showNotification}
+          autoHideDuration={3000}
+          onClose={() => this.setState({ showNotification: false })}
+          message={this.state.notificationMessage}
+        />
       </div>
     );
   }
@@ -148,7 +170,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
             startIcon={<AddIcon />}
             onClick={this.onTodoCreate}
           >
-            New task
+            New task  
           </Button>
         </Grid>
         <Grid item xs={12}>
