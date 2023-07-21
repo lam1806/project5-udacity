@@ -1,7 +1,7 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import {deleteToDo} from "../../helpers/DeleteTodo";
+import {deleteToDo} from "../../helpers/DeleteTask";
 import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 

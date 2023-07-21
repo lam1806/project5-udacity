@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import 'source-map-support/register'
 import * as middy from 'middy'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
-import { createToDo } from '../../helpers/CreateTodo'
+import { createToDo } from '../../helpers/CreateTask'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 //import { getUserId } from '../utils';
 //import { createTodo } from '../../businessLogic/todos'

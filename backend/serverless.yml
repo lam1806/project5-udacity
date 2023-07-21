@@ -40,7 +40,7 @@ custom:
       info:
         version: v1.0.0
         title: Todo API
-        description: serverless todo api
+        description: serverless api
     models:
       - name: CreateTodoRequest
         contentType: application/json
@@ -57,7 +57,7 @@ functions:
   # TODO: Configure this function - 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
   GetTodos:
-    handler: src/lambda/http/getTodos.handler
+    handler: src/lambda/http/getList.handler
     events:
       - http:
           method: get
@@ -90,7 +90,7 @@ functions:
   # To refer to an AWS resource defined in the "Resources" section, you can use "Resource: !GetAtt <resource-name>.Arn"
   # To validate incoming HTTP requests, we have provided the request schemas in function definition below. 
   CreateTodo:
-    handler: src/lambda/http/createTodo.handler
+    handler: src/lambda/http/create.handler
     events:
       - http:
           method: post
@@ -120,7 +120,7 @@ functions:
 
   # Function update item Todo
   UpdateTodo:
-    handler: src/lambda/http/updateTodo.handler
+    handler: src/lambda/http/update.handler
     events:
       - http:
           cors: true
@@ -151,7 +151,7 @@ functions:
 
   #Function delete item todo
   DeleteTodo:
-    handler: src/lambda/http/deleteTodo.handler
+    handler: src/lambda/http/delete.handler
     events:
       - http:
           cors: true

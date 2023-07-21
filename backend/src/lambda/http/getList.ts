@@ -1,7 +1,7 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { getAllToDo } from '../../helpers/Todos'
+import { getAllToDo } from '../../helpers/ListTask'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
