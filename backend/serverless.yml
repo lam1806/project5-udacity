@@ -54,14 +54,14 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  # TODO: Configure this function - 
+  # Listask: Configure this function - 
   # Provide iamRoleStatements property for performing Actions on DynamoDB
-  GetTodos:
+  GetTasks:
     handler: src/lambda/http/getList.handler
     events:
       - http:
           method: get
-          path: todos
+          path: tasks
           cors: true
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
@@ -85,22 +85,22 @@ functions:
         Resource:
           - "*"
 
-  # TODO: Configure this function - 
+  # Task: Configure this function - 
   # Provide iamRoleStatements property. Decide the Actions and AWS Resource. 
   # To refer to an AWS resource defined in the "Resources" section, you can use "Resource: !GetAtt <resource-name>.Arn"
   # To validate incoming HTTP requests, we have provided the request schemas in function definition below. 
-  CreateTodo:
+  CreateTask:
     handler: src/lambda/http/create.handler
     events:
       - http:
           method: post
-          path: todos
+          path: tasks
           cors: true
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
           documentation:
-            summary: Create a new item todo
-            description: Create a new item todo
+            summary: Create a new item 
+            description: Create a new item 
             requestModels:
               'application/json': CreateTodoRequest
           request:
@@ -119,7 +119,7 @@ functions:
           - "*"
 
   # Function update item Todo
-  UpdateTodo:
+  UpdateTask:
     handler: src/lambda/http/update.handler
     events:
       - http:
@@ -129,8 +129,8 @@ functions:
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
           documentation:
-            summary: Update a item todo
-            description: Update a item todo
+            summary: Update a item 
+            description: Update a item
             requestModels:
               'application/json': UpdateTodoRequest
           request:
@@ -150,7 +150,7 @@ functions:
           - "*"
 
   #Function delete item todo
-  DeleteTodo:
+  DeleteTask:
     handler: src/lambda/http/delete.handler
     events:
       - http:
@@ -160,8 +160,8 @@ functions:
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
           documentation:
-            summary: Delete a item todo
-            description: Delete a item todo
+            summary: Delete a item 
+            description: Delete a item 
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -187,8 +187,8 @@ functions:
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
           documentation:
-            summary: Upload url image of a item todo
-            description: Upload url image of a item todo
+            summary: Upload url image of a item 
+            description: Upload url image of a item 
     iamRoleStatements:
       - Effect: Allow
         Action:
