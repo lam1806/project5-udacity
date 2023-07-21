@@ -1,5 +1,5 @@
 import { parseUserId } from '../auth/utils'
-import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
+import { UpdateTodoRequest } from '../requests/UpdateTaskRequest'
 //import { TodoUpdate } from '../models/TodoUpdate'
 import { AllToDoAccess } from './ListTaskAcess'
 

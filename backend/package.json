@@ -1,7 +1,7 @@
 {
-  "name": "serverless-todo-app",
+  "name": "serverless-app",
   "version": "1.0.0",
-  "description": "Serverless TODO image app",
+  "description": "Serverless image ",
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/http-errors": "^1.8.2",
@@ -29,6 +29,6 @@
     "typescript": "^5.1.6",
     "webpack": "^4.46.0"
   },
-  "author": "Ivan Mushketyk",
+  "author": "lamnt63",
   "license": "MIT"
 }

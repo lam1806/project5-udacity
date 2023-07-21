@@ -1,7 +1,7 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { S3 } from 'aws-sdk'
-import { TodoItem } from '../models/TodoItem'
-import { TodoUpdate } from '../models/TodoUpdate'
+import { TodoItem } from '../models/TaskItem'
+import { TodoUpdate } from '../models/TaskUpdate'
 import { Attachment } from './Attachments';
 import { createLogger } from '../utils/logger';
 
