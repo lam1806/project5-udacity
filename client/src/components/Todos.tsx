@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 
-import { createTodo, deleteTodo, getTodos, patchTodo } from '../api/todos-api';
+import { createTodo, deleteTodo, getTodos, patchTodo } from '../api/carts-api';
 import Auth from '../auth/Auth';
 import { Todo } from '../types/Todo';
 import { Snackbar } from '@material-ui/core';
@@ -57,7 +57,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
   onTodoCreate = async () => {
     try {
       const { newTodoName } = this.state;
-
+      
       if (newTodoName === '') {
         this.setState({ error: 'Can not be empty' });
         return;
@@ -65,10 +65,12 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         this.setState({ error: 'Todo name cannot exceed 5 characters' });
         return;
       } else {
-        const dueDate = this.calculateDueDate();
+        const price = this.calculateDueDate();
+        const description = this.calculateDueDate();
         const newTodo = await createTodo(this.props.auth.getIdToken(), {
           name: this.state.newTodoName,
-          dueDate,
+          price,
+          description,
         });
         this.setState({
           todos: [...this.state.todos, newTodo],
@@ -106,7 +108,8 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
       const todo = this.state.todos[pos];
       await patchTodo(this.props.auth.getIdToken(), todo.todoId, {
         name: todo.name,
-        dueDate: todo.dueDate,
+        price: todo.price,
+        description: todo.description,
         done: !todo.done,
       });
       this.setState({
@@ -212,7 +215,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
                 <Typography>{todo.name}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{todo.dueDate}</Typography>
+                <Typography>{todo.price}</Typography>
               </Grid>
               <Grid item xs={2}>
                 <Button

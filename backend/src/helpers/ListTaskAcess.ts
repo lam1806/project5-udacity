@@ -1,7 +1,7 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { S3 } from 'aws-sdk'
-import { TodoItem } from '../models/TaskItem'
-import { TodoUpdate } from '../models/TaskUpdate'
+import { TodoItem } from '../models/CartItem'
+import { TodoUpdate } from '../models/CartUpdate'
 import { Attachment } from './Attachments';
 import { createLogger } from '../utils/logger';
 
@@ -66,15 +66,17 @@ export class AllToDoAccess {
                 todoId,
                 userId
             },
-            UpdateExpression: "set #name = :name, #dueDate = :dueDate, #done = :done",
+            UpdateExpression: "set #name = :name, #price = :price, #description = :description, #done = :done",
             ExpressionAttributeNames: {
                 "#name": "name",
-                "#dueDate": "dueDate",
+                "#price": "price",
+                "#description": "description",
                 "#done": "done"
             },
             ExpressionAttributeValues: {
                 ":name": todo.name,
-                ":dueDate": todo.dueDate,
+                ":price": todo.price,
+                ":description": todo.description,
                 ":done": todo.done
             }
         }).promise();

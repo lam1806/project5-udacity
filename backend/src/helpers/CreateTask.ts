@@ -1,6 +1,6 @@
-import { TodoItem } from '../models/TaskItem'
+import { TodoItem } from '../models/CartItem'
 import { parseUserId } from '../auth/utils'
-import { CreateTodoRequest } from '../requests/CreateTaskRequest'
+import { CreateTodoRequest } from '../requests/CreateCartRequest'
 import { AllToDoAccess } from './ListTaskAcess'
 
 const uuidv4 = require('uuid/v4')
@@ -19,6 +19,8 @@ export function createToDo(
       todoId: todoId,
       createdAt: new Date().getTime().toString(),
       attachmentUrl: null,
+      price: null,
+      description: null,
       done: false,
       ...createTodoRequest
     })
