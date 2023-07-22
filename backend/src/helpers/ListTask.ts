@@ -1,7 +1,7 @@
 //import { TodosAccess } from './todosAcess'
 //import { AttachmentUtils } from './attachmentUtils';
-import { TodoItem } from '../models/TaskItem'
-import { AllToDoAccess } from './ListTaskAcess'
+import { CartItem } from '../models/CartItem'
+import { AllCartAccess } from './ListTaskAcess'
 import { parseUserId } from '../auth/utils'
 //import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 //import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
@@ -11,8 +11,8 @@ import { parseUserId } from '../auth/utils'
 
 // TODO: Implement businessLogic
 
-const allToDoAccess = new AllToDoAccess()
-export async function getAllToDo(jwtToken: string): Promise<TodoItem[]> {
+const allCartAccess = new AllCartAccess()
+export async function getAllCart(jwtToken: string): Promise<CartItem[]> {
     const userId = parseUserId(jwtToken)
-    return allToDoAccess.getAllToDo(userId)
+    return allCartAccess.getAllCart(userId)
   }

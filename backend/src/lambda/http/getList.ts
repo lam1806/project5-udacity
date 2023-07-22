@@ -1,7 +1,7 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import { getAllToDo } from '../../helpers/ListTask'
+import { getAllCart } from '../../helpers/ListTask'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
@@ -16,7 +16,7 @@ export const handler = middy(
   const split = authorization.split(' ')
   const jwtToken = split[1]
 
-  const toDos = await getAllToDo(jwtToken)
+  const toDos = await getAllCart(jwtToken)
   const result = {
     statusCode: 200,
     headers: {

@@ -1,11 +1,11 @@
 import { parseUserId } from '../auth/utils'
-import { UpdateTodoRequest } from '../requests/UpdateTaskRequest'
+import { UpdateCartRequest } from '../requests/UpdateCartRequest'
 //import { TodoUpdate } from '../models/TodoUpdate'
-import { AllToDoAccess } from './ListTaskAcess'
+import { AllCartAccess } from './ListTaskAcess'
 
-const allToDoAccess = new AllToDoAccess()
+const allCartAccess = new AllCartAccess()
 
-export const  updateToDo = async (updateTodoRequest: UpdateTodoRequest, todoId: string, jwtToken: string) => {
+export const  updateCart = async (updateCartRequest: UpdateCartRequest, todoId: string, jwtToken: string) => {
     const userId = parseUserId(jwtToken);
-    await allToDoAccess.updateTodo(updateTodoRequest, todoId, userId);
+    await allCartAccess.updateCart(updateCartRequest, todoId, userId);
 }

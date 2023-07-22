@@ -1,13 +1,13 @@
 import { apiEndpoint } from '../config'
-import { Todo } from '../types/Todo';
-import { CreateTodoRequest } from '../types/CreateTodoRequest';
+import { Cart } from '../types/Cart';
+import { CreateCartRequest } from '../types/CreateCartRequest';
 import Axios from 'axios'
-import { UpdateTodoRequest } from '../types/UpdateTodoRequest';
+import { UpdateCartRequest } from '../types/UpdateCartRequest';
 
-export async function getTodos(idToken: string): Promise<Todo[]> {
-  console.log('Fetching todos')
+export async function getCarts(idToken: string): Promise<Cart[]> {
+  console.log('Fetching carts')
 
-  const response = await Axios.get(`${apiEndpoint}/todos`, {
+  const response = await Axios.get(`${apiEndpoint}/carts`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${idToken}`
@@ -17,11 +17,11 @@ export async function getTodos(idToken: string): Promise<Todo[]> {
   return response.data.items
 }
 
-export async function createTodo(
+export async function createCart(
   idToken: string,
-  newTodo: CreateTodoRequest
-): Promise<Todo> {
-  const response = await Axios.post(`${apiEndpoint}/todos`,  JSON.stringify(newTodo), {
+  newCart: CreateCartRequest
+): Promise<Cart> {
+  const response = await Axios.post(`${apiEndpoint}/carts`,  JSON.stringify(newCart), {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${idToken}`
@@ -30,10 +30,10 @@ export async function createTodo(
   return response.data.item
 }
 
-export async function patchTodo(
+export async function patchCart(
   idToken: string,
   todoId: string,
-  updatedTodo: UpdateTodoRequest
+  updatedTodo: UpdateCartRequest
 ): Promise<void> {
   await Axios.patch(`${apiEndpoint}/todos/${todoId}`, JSON.stringify(updatedTodo), {
     headers: {
@@ -43,7 +43,7 @@ export async function patchTodo(
   })
 }
 
-export async function deleteTodo(
+export async function deleteCart(
   idToken: string,
   todoId: string
 ): Promise<void> {

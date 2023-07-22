@@ -1,11 +1,11 @@
 
 import { parseUserId } from '../auth/utils'
-import { AllToDoAccess } from './ListTaskAcess'
+import { AllCartAccess } from './ListTaskAcess'
 
-const allToDoAccess = new AllToDoAccess()
+const allCartAccess = new AllCartAccess()
 
-export function deleteToDo(todoId: string, jwtToken: string): Promise<string> {
+export function deleteCart(todoId: string, jwtToken: string): Promise<string> {
   console.log("todoId: ", todoId, "| jwtToken: ", jwtToken)
 const userId = parseUserId(jwtToken)
-return allToDoAccess.deleteToDo(todoId, userId)
+return allCartAccess.deleteToDo(todoId, userId)
 }

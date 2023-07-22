@@ -1,35 +1,35 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { S3 } from 'aws-sdk'
-import { TodoItem } from '../models/TaskItem'
-import { TodoUpdate } from '../models/TaskUpdate'
+import { CartItem } from '../models/CartItem'
+import { CartUpdate } from '../models/CartUpdate'
 import { Attachment } from './Attachments';
 import { createLogger } from '../utils/logger';
 
 const logger = createLogger('TodosAccess')
 
-export class AllToDoAccess {
+export class AllCartAccess {
   private readonly docClient: DocumentClient
   private readonly s3Client: S3
-  private readonly todoTable: string
+  private readonly cartTable: string
   private readonly s3BucketName= process.env.ATTACHMENT_S3_BUCKET_VALUE;
 
   constructor(
     docClient?: DocumentClient,
     s3Client?: S3,
-    todoTable?: string,
+    cartTable?: string,
     //s3BucketName?: string
   ) {
     this.docClient = docClient || new DocumentClient()
     this.s3Client = s3Client || new S3({ signatureVersion: 'v4' })
-    this.todoTable = todoTable || process.env.TODOS_TABLE || ''
+    this.cartTable = cartTable || process.env.CARTS_TABLE || ''
     //this.s3BucketName = s3BucketName || process.env.ATTACHMENT_S3_BUCKET_VALUE || ''
   }
 
-  public async getAllToDo(userId: string): Promise<TodoItem[]> {
-    console.log('Getting all item todos ')
+  public async getAllCart(userId: string): Promise<CartItem[]> {
+    console.log('Getting all item carts ')
 
     const params: DocumentClient.QueryInput = {
-      TableName: this.todoTable,
+      TableName: this.cartTable,
       KeyConditionExpression: '#userId = :userId',
       ExpressionAttributeNames: {
         '#userId': 'userId'
@@ -41,27 +41,27 @@ export class AllToDoAccess {
 
     const result = await this.docClient.query(params).promise()
 
-    const items: TodoItem[] = result.Items as TodoItem[]
+    const items: CartItem[] = result.Items as CartItem[]
     return items
   }
 
-  public async createToDo(todoItem: TodoItem): Promise<TodoItem> {
+  public async createCart(cartItem: CartItem): Promise<CartItem> {
     console.log('Creating new todo')
     const params: DocumentClient.PutItemInput = {
-      TableName: this.todoTable,
-      Item: todoItem
+      TableName: this.cartTable,
+      Item: cartItem
     }
     await this.docClient.put(params).promise()
     console.log('Todo created successfully')
-    return todoItem
+    return cartItem
   }
 
-  public async updateTodo( todo: TodoUpdate, userId: string, todoId: string ) {
+  public async updateCart( todo: CartUpdate, userId: string, todoId: string ) {
     if (userId) {
         logger.info(`Found todo ${todoId}, ready for update`);
         console.log("updateTodo")
         await this.docClient.update({
-            TableName: this.todoTable,
+            TableName: this.cartTable,
             Key: {
                 todoId,
                 userId
@@ -103,7 +103,7 @@ export class AllToDoAccess {
         userId: userId,
         todoId: todoId
       },
-      TableName: this.todoTable
+      TableName: this.cartTable
     }
     try {
       const result = await this.docClient.delete(params).promise()
@@ -125,7 +125,7 @@ export class AllToDoAccess {
     if (userId) {
       try {
         await this.docClient.update({
-            TableName: this.todoTable,
+            TableName: this.cartTable,
             Key: {
                 todoId, userId
             },

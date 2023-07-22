@@ -13,20 +13,20 @@ import {
 } from '@material-ui/core';
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 
-import { createTodo, deleteTodo, getTodos, patchTodo } from '../api/todos-api';
+import { createCart, deleteCart, getCarts, patchCart } from '../api/carts-api';
 import Auth from '../auth/Auth';
-import { Todo } from '../types/Todo';
+import { Cart } from '../types/Cart';
 import { Snackbar } from '@material-ui/core';
 
 
 
-interface TodosProps {
+interface CartsProps {
   auth: Auth;
   history: History;
 }
 
-interface TodosState {
-  todos: Todo[];
+interface CartsState {
+  todos: Cart[];
   newTodoName: string;
   loadingTodos: boolean;
   error: string;
@@ -35,8 +35,8 @@ interface TodosState {
   notificationMessage: string;
 }
 
-export class Todos extends React.PureComponent<TodosProps, TodosState> {
-  state: TodosState = {
+export class Carts extends React.PureComponent<CartsProps, CartsState> {
+  state: CartsState = {
     todos: [],
     newTodoName: '',
     loadingTodos: true,
@@ -66,7 +66,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         return;
       } else {
         const dueDate = this.calculateDueDate();
-        const newTodo = await createTodo(this.props.auth.getIdToken(), {
+        const newTodo = await createCart(this.props.auth.getIdToken(), {
           name: this.state.newTodoName,
           dueDate,
         });
@@ -82,7 +82,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
 
   onTodoDelete = async (todoId: string) => {
     try {
-      await deleteTodo(this.props.auth.getIdToken(), todoId);
+      await deleteCart(this.props.auth.getIdToken(), todoId);
       this.setState(
         {
           todos: this.state.todos.filter((todo) => todo.todoId !== todoId),
@@ -104,7 +104,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
   onTodoCheck = async (pos: number) => {
     try {
       const todo = this.state.todos[pos];
-      await patchTodo(this.props.auth.getIdToken(), todo.todoId, {
+      await patchCart(this.props.auth.getIdToken(), todo.todoId, {
         name: todo.name,
         dueDate: todo.dueDate,
         done: !todo.done,
@@ -121,7 +121,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
 
   async componentDidMount() {
     try {
-      const todos = await getTodos(this.props.auth.getIdToken());
+      const todos = await getCarts(this.props.auth.getIdToken());
       this.setState({
         todos,
         loadingTodos: false,

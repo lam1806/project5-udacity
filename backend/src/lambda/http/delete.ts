@@ -1,7 +1,7 @@
 import 'source-map-support/register'
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
-import {deleteToDo} from "../../helpers/DeleteTask";
+import {deleteCart} from "../../helpers/DeleteTask";
 import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 
@@ -14,7 +14,7 @@ export const handler = middy(
     const authorization = event.headers.Authorization;
     const split = authorization.split(' ');
     const jwtToken = split[1];
-    const deleteData = await deleteToDo(todoId, jwtToken);
+    const deleteData = await deleteCart(todoId, jwtToken);
     // TODO: Remove a TODO item by id
     const result = {
       statusCode: 200,
