@@ -66,15 +66,17 @@ export class AllCartAccess {
                 todoId,
                 userId
             },
-            UpdateExpression: "set #name = :name, #dueDate = :dueDate, #done = :done",
+            UpdateExpression: "set #name = :name, #price = :price, #description = :description, #done = :done",
             ExpressionAttributeNames: {
                 "#name": "name",
-                "#dueDate": "dueDate",
+                "#price": "price",
+                "#description": "description",
                 "#done": "done"
             },
             ExpressionAttributeValues: {
                 ":name": todo.name,
-                ":dueDate": todo.dueDate,
+                ":price": todo.price,
+                ":description": todo.description,
                 ":done": todo.done
             }
         }).promise();

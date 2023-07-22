@@ -2,7 +2,7 @@ import dateFormat from 'dateformat';
 import { History } from 'history';
 import update from 'immutability-helper';
 import * as React from 'react';
-import Images2 from '../images/1489353.jpg';
+import Images2 from '../images/cart.jpg';
 import {
   Button,
   Checkbox,
@@ -61,14 +61,16 @@ export class Carts extends React.PureComponent<CartsProps, CartsState> {
       if (newTodoName === '') {
         this.setState({ error: 'Can not be empty' });
         return;
-      } else if (newTodoName.length > 5) {
-        this.setState({ error: 'Todo name cannot exceed 5 characters' });
+      } else if (newTodoName.length > 20) {
+        this.setState({ error: 'Cart name cannot exceed 20 characters' });
         return;
       } else {
-        const dueDate = this.calculateDueDate();
+        const price = this.calculateDueDate();
+        const description = "new product";
         const newTodo = await createCart(this.props.auth.getIdToken(), {
           name: this.state.newTodoName,
-          dueDate,
+          price,
+          description
         });
         this.setState({
           todos: [...this.state.todos, newTodo],
@@ -106,7 +108,8 @@ export class Carts extends React.PureComponent<CartsProps, CartsState> {
       const todo = this.state.todos[pos];
       await patchCart(this.props.auth.getIdToken(), todo.todoId, {
         name: todo.name,
-        dueDate: todo.dueDate,
+        price: todo.price,
+        description: todo.description,
         done: !todo.done,
       });
       this.setState({
@@ -208,11 +211,14 @@ export class Carts extends React.PureComponent<CartsProps, CartsState> {
                   checked={todo.done}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={2}>
                 <Typography>{todo.name}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{todo.dueDate}</Typography>
+                <Typography>{todo.description}</Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography>{todo.price}</Typography>
               </Grid>
               <Grid item xs={2}>
                 <Button
@@ -254,11 +260,17 @@ export class Carts extends React.PureComponent<CartsProps, CartsState> {
       </Grid>
     );
   }
+  generateRandomPrice(min: number, max: number): number {
+    // Tạo giá tiền ngẫu nhiên trong khoảng từ min đến max
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
   calculateDueDate(): string {
     const date = new Date();
     date.setDate(date.getDate() + 4);
+    const randomPrice: number = this.generateRandomPrice(100, 1000);
 
-    return dateFormat(date, 'yyyy-mm-dd') as string;
+    return `${randomPrice}$ -exp: ${date.toISOString().split('T')[0]}`;
   }
+  
 }

@@ -3,5 +3,6 @@
  */
 export interface CreateCartRequest {
   name: string
-  dueDate: string
+  price: string
+  description: string
 }

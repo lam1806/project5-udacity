@@ -1,5 +1,6 @@
 export interface UpdateCartRequest {
   name: string
-  dueDate: string
+  price: string
+  description: string
   done: boolean
 }

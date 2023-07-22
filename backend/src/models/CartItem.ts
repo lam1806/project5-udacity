@@ -3,7 +3,8 @@ export interface CartItem {
   todoId: string
   createdAt: string
   name: string
-  dueDate: string
+  price: string
+  description: string
   done: boolean
   attachmentUrl?: string
 }
