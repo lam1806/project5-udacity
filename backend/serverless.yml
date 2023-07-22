@@ -25,7 +25,7 @@ provider:
   # Use these variables in the functions and resouorces section below. For example, 
   # ${self:provider.environment.ATTACHMENT_S3_BUCKET_VALUE}
   environment:
-    CARTS_TABLE: Cart-${self:provider.stage}
+    CARTS_TABLE: Todos-${self:provider.stage}
     CARTS_CREATED_AT_INDEX: CreatedAtIndex
     ATTACHMENT_S3_BUCKET_VALUE: project5-shopt-cart-serverless-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
@@ -61,7 +61,7 @@ functions:
     events:
       - http:
           method: get
-          path: carts
+          path: todos
           cors: true
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos
@@ -94,7 +94,7 @@ functions:
     events:
       - http:
           method: post
-          path: carts
+          path: todos
           cors: true
           authorizer: Auth
           reqValidatorName: RequestBodyValidatorToDos

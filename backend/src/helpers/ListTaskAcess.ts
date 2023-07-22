@@ -1,13 +1,13 @@
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { S3 } from 'aws-sdk'
-import { TodoItem } from '../models/CartItem'
-import { TodoUpdate } from '../models/CartUpdate'
+import { CartItem } from '../models/CartItem'
+import { CartUpdate } from '../models/CartUpdate'
 import { Attachment } from './Attachments';
 import { createLogger } from '../utils/logger';
 
 const logger = createLogger('TodosAccess')
 
-export class AllToDoAccess {
+export class AllCartAccess {
   private readonly docClient: DocumentClient
   private readonly s3Client: S3
   private readonly todoTable: string
@@ -21,11 +21,11 @@ export class AllToDoAccess {
   ) {
     this.docClient = docClient || new DocumentClient()
     this.s3Client = s3Client || new S3({ signatureVersion: 'v4' })
-    this.todoTable = todoTable || process.env.TODOS_TABLE || ''
+    this.todoTable = todoTable || process.env.CARTS_TABLE || ''
     //this.s3BucketName = s3BucketName || process.env.ATTACHMENT_S3_BUCKET_VALUE || ''
   }
 
-  public async getAllToDo(userId: string): Promise<TodoItem[]> {
+  public async getAllCart(userId: string): Promise<CartItem[]> {
     console.log('Getting all item todos ')
 
     const params: DocumentClient.QueryInput = {
@@ -41,11 +41,11 @@ export class AllToDoAccess {
 
     const result = await this.docClient.query(params).promise()
 
-    const items: TodoItem[] = result.Items as TodoItem[]
+    const items: CartItem[] = result.Items as CartItem[]
     return items
   }
 
-  public async createToDo(todoItem: TodoItem): Promise<TodoItem> {
+  public async createCart(todoItem: CartItem): Promise<CartItem> {
     console.log('Creating new todo')
     const params: DocumentClient.PutItemInput = {
       TableName: this.todoTable,
@@ -56,7 +56,7 @@ export class AllToDoAccess {
     return todoItem
   }
 
-  public async updateTodo( todo: TodoUpdate, userId: string, todoId: string ) {
+  public async updateCart( todo: CartUpdate, userId: string, todoId: string ) {
     if (userId) {
         logger.info(`Found todo ${todoId}, ready for update`);
         console.log("updateTodo")
@@ -97,7 +97,7 @@ export class AllToDoAccess {
     return url as string
   }
 
-  async deleteToDo(todoId: string, userId: string): Promise<string> {
+  async deleteCart(todoId: string, userId: string): Promise<string> {
     console.log('Deleting todo')
 
     const params = {

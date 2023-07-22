@@ -1,7 +1,7 @@
-import { AllToDoAccess } from './ListTaskAcess'
+import { AllCartAccess } from './ListTaskAcess'
 
-const allToDoAccess = new AllToDoAccess()
+const allCartAccess = new AllCartAccess()
 
 export function uploadUrlImage(todoId: string): Promise<string> {
-    return allToDoAccess.uploadUrlImage(todoId)
+    return allCartAccess.uploadUrlImage(todoId)
   }

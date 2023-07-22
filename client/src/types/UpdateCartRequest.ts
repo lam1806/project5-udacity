@@ -1,4 +1,4 @@
-export interface UpdateTodoRequest {
+export interface UpdateCartRequest {
   name: string
   price: string
   description: string

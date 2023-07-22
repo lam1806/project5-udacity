@@ -1,27 +1,25 @@
-import { TodoItem } from '../models/CartItem'
+import { CartItem } from '../models/CartItem'
 import { parseUserId } from '../auth/utils'
-import { CreateTodoRequest } from '../requests/CreateCartRequest'
-import { AllToDoAccess } from './ListTaskAcess'
+import { CreateCartRequest } from '../requests/CreateCartRequest'
+import { AllCartAccess } from './ListTaskAcess'
 
 const uuidv4 = require('uuid/v4')
-const allToDoAccess = new AllToDoAccess()
+const allToDoAccess = new AllCartAccess()
 
-export function createToDo(
-    createTodoRequest: CreateTodoRequest,
+export function createCart(
+    createCartRequest: CreateCartRequest,
     jwtToken: string
-  ): Promise<TodoItem> {
+  ): Promise<CartItem> {
     const userId = parseUserId(jwtToken)
     const todoId = uuidv4()
     //const s3BucketName = process.env.ATTACHMENT_S3_BUCKET_VALUE
     //const urlAttachment = `https://${s3BucketName}.s3.amazonaws.com/${todoId}`
-    return allToDoAccess.createToDo({
+    return allToDoAccess.createCart({
       userId: userId,
       todoId: todoId,
       createdAt: new Date().getTime().toString(),
       attachmentUrl: null,
-      price: null,
-      description: null,
       done: false,
-      ...createTodoRequest
+      ...createCartRequest
     })
   }

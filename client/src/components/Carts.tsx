@@ -13,9 +13,9 @@ import {
 } from '@material-ui/core';
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 
-import { createTodo, deleteTodo, getTodos, patchTodo } from '../api/carts-api';
+import { createCart, deleteTodo, getTodos, patchTodo } from '../api/carts-api';
 import Auth from '../auth/Auth';
-import { Todo } from '../types/Todo';
+import {Cart } from '../types/Cart';
 import { Snackbar } from '@material-ui/core';
 
 
@@ -26,7 +26,7 @@ interface TodosProps {
 }
 
 interface TodosState {
-  todos: Todo[];
+  todos: Cart[];
   newTodoName: string;
   loadingTodos: boolean;
   error: string;
@@ -65,12 +65,13 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         this.setState({ error: 'Todo name cannot exceed 5 characters' });
         return;
       } else {
-        const price = this.calculateDueDate();
-        const description = this.calculateDueDate();
-        const newTodo = await createTodo(this.props.auth.getIdToken(), {
+        //const price = this.calculateDueDate();
+        //console.log(price);
+        //const description = this.calculateDueDate();
+        const newTodo = await createCart(this.props.auth.getIdToken(), {
           name: this.state.newTodoName,
-          price,
-          description,
+          price: this.calculateDueDate(),
+          description: this.calculateDueDate(),
         });
         this.setState({
           todos: [...this.state.todos, newTodo],
@@ -211,11 +212,14 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
                   checked={todo.done}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={3}>
                 <Typography>{todo.name}</Typography>
               </Grid>
               <Grid item xs={2}>
                 <Typography>{todo.price}</Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <Typography>{todo.description}</Typography>
               </Grid>
               <Grid item xs={2}>
                 <Button
